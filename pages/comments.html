@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>评论</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/comments.css">
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/moment.js"></script>
+  <script src="../js/comment.js"></script>
+
+</head>
+<body>
+  <div class="comment_wrap">
+    <div class="business_info">
+      <p class="business_info1">商家简介</p>
+      <div class="icon_line"><p></p></div>
+      <div class="business_name">
+        <p>上海悦管家网络科技有限公司</p>
+        <img src="../imgs/renzheng.jpg" alt="">
+      </div>
+      <p class="business_detail">
+        悦管家是一家垂直管理的O2O家庭服务平台，自2014年起坚持垂直管理的模式，把控服务人员的服务质量，将所有培训和品牌落实到每一个服务人员。
+        服务特点有：
+        1、自带工具上门服务
+        2、服务人员全保险，无免赔额
+        3、服务人员属于平台垂直管理。
+        为客户带去最安全优质的服务。
+      </p>
+    </div>
+    <div class="comments_info">
+      <p class="comments_info1">用户评论</p>
+      <span>(1658条评论)</span>
+      <div class="icon_line"><p></p></div>
+
+     <div id="comments"></div>
+      <div class="select_list">
+        <a href="#" class="up_page"><span>< 上一页</span></a>
+        <div class="select_one">
+          <a class="active" href="#"><span>1</span></a>
+          <a href="#"><span>2</span></a>
+          <a href="#"><span>3</span></a>
+          <a href="#"><span>4</span></a>
+          <a href="#"><span>5</span></a>
+          <a href="#"><span>6</span></a>
+          <a href="#"><span>7</span></a>
+          <a href="#"><span>8</span></a>
+          <a href="#"><span>9</span></a>
+          <a href="#"><span>10</span></a>
+        </div>
+        <a href=""><span>...</span></a>
+        <a href="#" class="down_page"><span>下一页 ></span></a>
+      </div>
+    </div>
+  </div>
+  <script id="comment" type="text/html">
+    {{each oneTik as value i}}
+    <div class="comment_one">
+      <img src="{{value.iconUrl}}" class="avatar" alt="">
+      <div class="comment_right">
+        <p class="user_name">{{value.nick}}</p>
+        <div class="rating_date">
+          {{each value.star as val e}}
+          <img src="../imgs/red_star.png" alt="">
+          {{/each}}
+
+          {{each value.gray_star as val e}}
+          <img src="../imgs/gray_star.png" alt="">
+          {{/each}}
+          <span>{{value.createtime}}</span>
+        </div>
+        <p class="user_comment">
+          {{value.comment}}
+        </p>
+        <p class="user_local">
+          <img src="../imgs/position.jpg" alt="">
+          <span>{{value.city}}</span>
+          <span>{{value.area}}</span>
+        </p>
+      </div>
+      <div class="icon_line"></div>
+    </div>
+    {{/each}}
+  </script>
+  <script src="../js/template.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var current_index = 0
+      //每次都用这个空数组装对应的数据
+      var arr=[]
+      $.getJSON('../data/db.json',function (result) {
+
+        //封装获取时间以及做出星星length
+        function util(e) {
+          result.comment[e].createtime = moment(result.comment[e].createtime).format('YYYY-MM-DD')
+          result.comment[e].star = result.comment[e].star + ''
+          result.comment[e].star = result.comment[e].star.split('')
+          for(var i=0;i<result.comment[e].star[0]-1;i++){
+            result.comment[e].star.length++
+          }
+          let gray_star = 5-result.comment[e].star.length
+          if(gray_star){
+            result.comment[e].gray_star = []
+            result.comment[e].gray_star.length = gray_star
+          }
+        }
+
+
+        //初始设置为选择1
+        let firstload = []
+        for(var e=0;e<10;e++){
+          util(e)
+          firstload.push(result.comment[e])
+        }
+        let data ={
+          oneTik:firstload
+        }
+        // //根据评论数量动态控制评论选择器的数量
+        // let select_length =Math.ceil(result.comment.length/10)
+        // for(var b=select_length+1;b<10;b++){
+        //   $('.select_one a')[b-1].remove()
+        // }
+
+        //选择其他时候做判断
+        $('.select_one a').click(function () {
+          //样式判断
+          for(var t=0;t<$('.select_one a').length;t++){
+            $('.select_one a').removeClass('active')
+            $(this).addClass('active')
+          }
+          //获取当前点击的下标
+          current_index = $('.select_one a').index($(this))
+
+          //根据点击下标获取arr的数据
+          for(var i=current_index*10;i<(current_index+1)*10;i++){
+
+            util(i)
+
+            arr.push(result.comment[i])
+          }
+          //art template固定写法
+          let data ={
+            oneTik:arr
+          }
+          let commentHtml = template('comment',data)
+          $('#comments').html(commentHtml)
+          arr=[]
+        })
+
+
+        //点击上一页评论
+        $('.up_page').click(function () {
+
+          if(current_index){
+            current_index--
+            //样式判断
+            $('.select_one a').eq(current_index+1).removeClass('active')
+            $('.select_one a').eq(current_index).addClass('active')
+            //根据点击下标获取arr的数据
+            for(var i=current_index*10;i<(current_index+1)*10;i++){
+
+              util(i)
+
+              arr.push(result.comment[i])
+            }
+            //art template固定写法
+            let data ={
+              oneTik:arr
+            }
+            let commentHtml = template('comment',data)
+            $('#comments').html(commentHtml)
+            arr=[]
+
+          }
+        })
+
+        //点击下一页评论
+        $('.down_page').click(function () {
+
+          if(current_index>=0&&current_index<select_length-1){
+            current_index++
+            //样式判断
+            $('.select_one a').eq(current_index-1).removeClass('active')
+            $('.select_one a').eq(current_index).addClass('active')
+            //根据点击下标获取arr的数据
+            for(var i=current_index*10;i<(current_index+1)*10;i++){
+
+              util(i)
+
+              arr.push(result.comment[i])
+            }
+            //art template固定写法
+            let data ={
+              oneTik:arr
+            }
+            let commentHtml = template('comment',data)
+            $('#comments').html(commentHtml)
+            arr=[]
+
+          }
+        })
+
+        let commentHtml = template('comment',data)
+        $('#comments').html(commentHtml)
+        arr=[]
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>到位</title>
+  <link rel="stylesheet" href="./css/swiper-4.3.5.min.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/swiper-4.3.5.min.js"></script>
+  <script src="./js/index.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <img src="./imgs/logo.png" alt="">
+    </div>
+    <a href="" class="positions">
+      <img src="./imgs/citypoint.png" alt="">
+      <span>深圳</span>
+      <span class="change_city">切换城市</span>
+    </a>
+    <div class="nav">
+      <span><a href="">首页</a></span>
+      <span><a href="">到位APP</a></span>
+      <span><a href="">服务商</a></span>
+      <span><a href="">商家入驻</a></span>
+      <span><a href="">关于我们</a></span>
+      <span><a href="./pages/comments.html">商家登录</a></span>
+    </div>
+  </header>
+  <div class="nav_show">
+    <div class="nav_list">
+      <ul class="nav_ul">
+        <div class="nav_ul_list">
+          <a href="">
+            <li><span>家庭保洁</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>上门按摩</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>上门维修</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>家电清洗</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>衣物洗护</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>搬家速运</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>美容美妆</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>上门安装</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>上门医护</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+          <a href="">
+            <li><span>保姆月嫂</span><img src="./imgs/right.png" alt=""><img class="left_icon" src="./imgs/icon1.png" alt="">
+            </li>
+          </a>
+        </div>
+        <div id="content5"></div>
+      </ul>
+    </div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="./imgs/wallhaven-661501.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="./imgs/wallhaven-663354.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="./imgs/wallhaven-669703.jpg" alt=""></div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div id="content2"></div>
+
+  <footer>
+    <div class="foot_content">
+      <h2>到位<span>服务</span>保障</h2>
+      <p class="foot_content_title">到位平台担保交易安全，交易未成功100%退款</p>
+      <p>
+        <span><img src="../imgs/anquan.jpg" alt="">优选服务</span>
+        <span><img src="../imgs/anquan.jpg" alt="">全程保障</span>
+        <span><img src="../imgs/anquan.jpg" alt="">安全无忧</span>
+      </p>
+    </div>
+    <div id="content3"></div>
+    <div id="content4"></div>
+  </footer>
+
+</div>
+
+
+<script id="test" type="text/html">
+  {{each list as value i}}
+  <div class="content">
+    <h2>{{value.serviceIndex}}</h2>
+    <p class="content_nav">
+      {{each value.serviceType as item1 i}}
+      <a href=""><span> {{item1}}</span></a>
+      {{/each}}
+      <a href=""><span class="more_service">更多服务></span></a>
+    </p>
+    <div class="content_wrap">
+      <div class="content_list">
+        {{each value.shopList as item2 i}}
+        <a href="">
+          <div class="single_detail">
+            <img src="{{item2.imgUrl}}" alt="">
+            <p class="content_list_title">{{item2.serviceName}}</p>
+            <div class="content_list_desc">
+              <p>
+                {{item2.description}}
+              </p>
+            </div>
+            <div class="content_list_price">
+              <p>{{item2.price}} <span class="content_list_hour">元/小时</span><span class="content_list_detail">查看详情</span></p>
+            </div>
+          </div>
+        </a>
+        {{/each}}
+      </div>
+      <div class="content_list_bottom">
+        {{each value.elseList as item3 i}}
+        <span><a href="">{{item3}}</a></span>
+        {{/each}}
+      </div>
+    </div>
+
+  </div>
+  {{/each}}
+
+</script>
+<script id="test2" type="text/html">
+
+  <div class="city_form">
+    <p>热门城市</p>
+    <div>
+      {{each list2 as value2 i}}
+      <span><a href="">{{value2}}</a></span>
+      {{/each}}
+    </div>
+  </div>
+
+</script>
+<script id="test3" type="text/html">
+  <div class="business_friend">
+    <p>合作伙伴</p>
+    <div>
+      {{each list3 as value3 i}}
+      <img src="./imgs/qiaomao%20(1).png" alt="">
+      {{/each}}
+    </div>
+  </div>
+
+</script>
+<script id="test4" type="text/html">
+  <div class="nav_right_show">
+    {{each list4.serviceType as value4 i}}
+    <p><a href="">{{value4}}</a></p>
+    {{/each}}
+  </div>
+
+</script>
+<script type="text/javascript" src="./js/template.js"></script>
+<script type="text/javascript">
+
+
+    $.getJSON("./data/db.json", function (result) {
+      console.log(result);
+      let data = {
+        list: result.index,
+        list2:result.hotCity,
+        list3:result.service,
+      }
+      let index_nav
+      var result1 = result
+      $('.nav_ul_list a').hover(function () {
+       index_nav = $('.nav_ul_list a').index($(this))
+
+        let data ={
+          list4:result1.index[index_nav]
+        }
+        let tmpHtml4 = template('test4', data)
+        $('#content5').html(tmpHtml4)
+
+        $('.nav_right_show').show()
+        $(this).find('img').first().css('opacity','0')
+        $(this).find('.left_icon').show()
+      },function () {
+         $('.nav_right_show').hide()
+         $(this).find('img').first().css('opacity','1')
+         $(this).find('.left_icon').hide()
+      })
+
+
+      $('#content5').hover(function () {
+        $('.nav_right_show').show()
+        $('.nav_ul_list a').eq(index_nav).find('img').first().css('opacity','0')
+        $('.nav_ul_list a').eq(index_nav).find('.left_icon').css('display','block')
+      },function () {
+        $('.nav_right_show').hide()
+        $('.nav_ul_list a').eq(index_nav).find('img').first().css('opacity','1')
+        $('.nav_ul_list a').eq(index_nav).find('.left_icon').css('display','none')
+      })
+
+
+      let tmpHtml = template('test', data)
+      let tmpHtml2 = template('test2', data)
+      let tmpHtml3 = template('test3', data)
+      $('#content2').html(tmpHtml)
+      $('#content3').html(tmpHtml2)
+      $('#content4').html(tmpHtml3)
+    });
+
+
+</script>
+</body>
+</html>
